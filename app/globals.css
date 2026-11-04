@@ -1,0 +1,128 @@
+@import "tailwindcss";
+
+@theme {
+  --color-night: #0b1020;
+  --color-pitch: #0f1629;
+  --color-turf: #151e36;
+  --color-chalk: #f3f0e8;
+  --color-mist: #9aa3b5;
+  --color-fog: #6b7489;
+  --color-blau: #004d98;
+  --color-blau-bright: #5c9be6;
+  --color-grana: #a50044;
+  --color-grana-bright: #ec5c8f;
+  --color-burgundy: #6a123a;
+  --color-gold: #edbb00;
+  --color-line: rgb(243 240 232 / 0.09);
+  --color-line-strong: rgb(243 240 232 / 0.16);
+
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
+  --font-display: var(--font-archivo), "Arial Narrow", ui-sans-serif, sans-serif;
+
+  --ease-out-soft: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-night text-chalk font-sans antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background: var(--color-grana);
+    color: var(--color-chalk);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-blau-bright);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+@layer components {
+  /* Condensed, uppercase display type — the "jersey" voice. */
+  .display {
+    font-family: var(--font-display);
+    font-stretch: 72%;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    line-height: 0.9;
+  }
+  /* Mono matchday labels. */
+  .kicker {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-variant-numeric: tabular-nums;
+  }
+  /* Blaugrana vertical stripes — the signature motif. */
+  .stripes {
+    background-image: repeating-linear-gradient(
+      90deg,
+      var(--color-blau) 0 var(--stripe, 6px),
+      var(--color-grana) var(--stripe, 6px) calc(var(--stripe, 6px) * 2)
+    );
+  }
+  /* Faint tactics-board grid. */
+  .board-grid {
+    background-image:
+      linear-gradient(to right, var(--color-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--color-line) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+  .container-page {
+    @apply mx-auto w-full max-w-[1240px] px-5 md:px-8;
+  }
+}
+
+/* Scroll reveal (see components/ui/Reveal.tsx). Visible by default; JS opts in. */
+[data-reveal="pending"] {
+  opacity: 0;
+  transform: translateY(18px);
+}
+[data-reveal="shown"] {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 700ms var(--ease-out-soft),
+    transform 700ms var(--ease-out-soft);
+}
+
+/* Passing lanes in the hero formation draw in once. */
+@keyframes lane-draw {
+  from {
+    stroke-dashoffset: var(--lane-length, 400);
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+.lane {
+  stroke-dasharray: var(--lane-length, 400);
+  animation: lane-draw 1.6s var(--ease-out-soft) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
