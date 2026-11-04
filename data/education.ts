@@ -23,11 +23,12 @@ export const journey: JourneyEntry[] = [
     detail: "Building a base in data structures, OOP, DBMS, operating systems and networks.",
   },
   ...[...projects]
-    .sort((a, b) => a.dateISO.localeCompare(b.dateISO))
+    // Dated projects in order; undated ones (date unconfirmed) go last.
+    .sort((a, b) => (a.dateISO ?? "9999").localeCompare(b.dateISO ?? "9999"))
     .map<JourneyEntry>((p) => ({
-      kind: "project",
+      kind: p.context ? "hackathon" : "project",
       date: p.date,
-      title: p.title,
+      title: p.context ? `${p.title} · ${p.context.event}` : p.title,
       detail: p.summary,
       href: `/projects/${p.slug}`,
     })),

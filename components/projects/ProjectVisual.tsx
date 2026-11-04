@@ -1,10 +1,12 @@
 import type { ProjectVisual as VisualKey } from "@/types";
 import { EscrowVisual } from "./visuals/EscrowVisual";
 import { LedgerVisual } from "./visuals/LedgerVisual";
-import { ThreatVisual } from "./visuals/ThreatVisual";
+import { SolarArchitectureVisual } from "./visuals/SolarArchitectureVisual";
+import { SolarDashboardVisual } from "./visuals/SolarDashboardVisual";
 
 const visuals: Record<VisualKey, (props: { id?: string }) => React.JSX.Element> = {
-  threat: ThreatVisual,
+  "solar-dashboard": SolarDashboardVisual,
+  "solar-architecture": SolarArchitectureVisual,
   ledger: LedgerVisual,
   escrow: EscrowVisual,
 };

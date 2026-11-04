@@ -1,5 +1,6 @@
 import { CASE_STUDY_SECTIONS, type CaseStudy as CaseStudyData } from "@/types";
 import { HighlightList } from "./ProjectMeta";
+import { ProjectVisual } from "./ProjectVisual";
 
 /** Sections that have real content, in canonical order. */
 export function presentSections(caseStudy: CaseStudyData) {
@@ -44,6 +45,11 @@ export function CaseStudyBody({ caseStudy }: { caseStudy: CaseStudyData }) {
             </h2>
             <div className="mt-5 flex max-w-2xl flex-col gap-4 text-lg leading-relaxed text-chalk/85">
               {block.paragraphs?.map((p) => <p key={p}>{p}</p>)}
+              {block.visual ? (
+                <figure className="my-2 rounded-2xl border border-line bg-pitch p-4 sm:p-6">
+                  <ProjectVisual visual={block.visual} id={`cs-${key}`} />
+                </figure>
+              ) : null}
               {block.bullets?.length ? <HighlightList items={block.bullets} /> : null}
             </div>
           </section>

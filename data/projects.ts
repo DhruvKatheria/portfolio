@@ -9,47 +9,114 @@ import type { Project } from "@/types";
  */
 export const projects: Project[] = [
   {
-    slug: "phishing-detector",
+    slug: "solarsleuth",
     number: "01",
-    title: "AI-Based Phishing Detector",
-    shortTitle: "Phishing Detector",
-    kicker: "Applied ML · Security",
-    date: "March 2025",
-    dateISO: "2025-03",
+    title: "SolarSleuth",
+    subtitle: "Explainable Solar PV Performance Analytics Platform",
+    shortTitle: "SolarSleuth",
+    kicker: "Energy analytics · Explainable AI",
     flagship: true,
-    visual: "threat",
+    visual: "solar-dashboard",
+    context: {
+      event: "Globathon by Globatech",
+      brief: "Problem Statement 3: Explaining Performance Variance",
+      team: "Midnight_Protocol",
+    },
     summary:
-      "An AI-powered detector for phishing emails and URLs, built around a fine-tuned BERT model that classifies communications by threat level.",
+      "A full-stack solar analytics platform that investigates why solar plants generate less electricity than forecasted, and backs every explanation with evidence.",
     problem:
-      "Phishing messages are written to look legitimate. Simple keyword rules miss them, so recognising one depends on understanding language and intent, not just spotting a bad link.",
-    stack: ["Python", "Flask", "BERT", "JavaScript", "HTML", "CSS", "PyPDF / FPDF"],
+      "Solar plants regularly produce less than their forecasts. The shortfall itself is easy to see. Explaining it is harder: where the gap appeared, how it built up, and what the data says about the likely cause.",
+    stack: [
+      "React",
+      "TypeScript",
+      "Python",
+      "FastAPI",
+      "MongoDB",
+      "NumPy",
+      "Pandas",
+      "JWT",
+      "Argon2",
+      "Docker",
+      "LLM integration",
+    ],
     highlights: [
-      "Fine-tuned and integrated a pretrained BERT model for phishing email classification.",
-      "Recognises threat patterns and grades communications by threat level, based on deception and detectability.",
-      "Covers both phishing emails and URLs.",
+      "Physics-based solar generation estimation provides the expected baseline that actual output is measured against.",
+      "Anomaly detection combines MAD-based peer comparison, persistence detection and CUSUM.",
+      "Evidence-based loss attribution and forecast-to-actual energy reconciliation, with inverter-level performance analysis.",
+      "Separate backend, analytics and LLM explanation services behind interactive dashboards, persistent reports and an AI Variance Assistant.",
     ],
     caseStudy: {
       overview: {
         paragraphs: [
-          "An AI-powered phishing email and URL detector. A pretrained BERT language model was fine-tuned for phishing email classification and integrated into a Flask application with an HTML, CSS and JavaScript front end.",
+          "SolarSleuth is a full-stack solar energy analytics platform that investigates why solar plants generate less electricity than forecasted. It processes plant telemetry, estimates expected generation using physics-based PV modelling, detects anomalies, identifies potential loss causes, and presents evidence-backed insights through interactive dashboards and an AI-assisted explanation interface.",
+          "Built by team Midnight_Protocol at Globathon by Globatech, in response to Problem Statement 3: Explaining Performance Variance.",
         ],
       },
       problem: {
         paragraphs: [
-          "Phishing relies on messages that look legitimate. Deciding whether a communication is a threat depends on its language and intent as much as on any single link, which is why the project uses a language model rather than fixed rules.",
+          "A plant that underperforms its forecast creates a number, not an answer. Operators need to know where the variance came from, whether it is a one-off or a sustained issue, and which evidence supports a given cause. The challenge brief framed this directly: explain performance variance, don't just report it.",
+        ],
+      },
+      solution: {
+        bullets: [
+          "Ingest plant telemetry from CSV and XLSX files, with validation before analysis.",
+          "Estimate expected generation with physics-based PV modelling.",
+          "Detect anomalies using MAD-based peer comparison, persistence detection and CUSUM.",
+          "Attribute losses to potential causes, with the supporting evidence attached.",
+          "Reconcile forecast against actual energy, down to inverter level.",
+          "Present results through interactive dashboards, persistent reports and an AI Variance Assistant.",
         ],
       },
       architecture: {
+        paragraphs: [
+          "The platform uses a multi-service architecture, with the backend, analytics and LLM explanation layers running as separate services. The diagram below is a simplified view.",
+        ],
+        visual: "solar-architecture",
         bullets: [
-          "Web interface: HTML, CSS and JavaScript.",
-          "Application server: Python with Flask.",
-          "Classification: a fine-tuned pretrained BERT model.",
-          "Document handling: PyPDF / FPDF libraries.",
+          "Frontend: React and TypeScript, for dashboards, reports and the assistant interface.",
+          "Backend service: Python and FastAPI, with JWT authentication, Argon2 password hashing and MongoDB for persistent data such as reports.",
+          "Analytics service: Python with NumPy and Pandas for modelling, detection, attribution and reconciliation.",
+          "LLM explanation service: powers the AI Variance Assistant.",
+          "Docker for running the services.",
+        ],
+      },
+      implementation: {
+        bullets: [
+          "Data ingestion: CSV and XLSX uploads are parsed and validated before they reach the analytics pipeline.",
+          "Expected generation: a physics-based PV model estimates what each plant should have produced.",
+          "Inverter-level analysis: performance is examined per inverter, not just as a plant-wide total.",
+          "Numerical work is done with NumPy and Pandas in the dedicated analytics service.",
+        ],
+      },
+      anomalyDetection: {
+        paragraphs: [
+          "Underperformance takes different shapes, so the platform uses three complementary detectors rather than one threshold:",
+        ],
+        bullets: [
+          "MAD-based peer detection: compares comparable units against their peers using the median absolute deviation, a measure of spread that the outliers being searched for can't easily distort.",
+          "Persistence detection: separates deviations that persist over time from one-off spikes.",
+          "CUSUM: accumulates small, sustained deviations so that gradual drift becomes visible, even when no single reading looks wrong.",
+        ],
+      },
+      reconciliation: {
+        paragraphs: [
+          "Forecast-to-actual energy reconciliation sets forecast, physics-based expected and actual generation side by side, so the gap can be traced instead of just measured.",
+          "Evidence-based loss attribution then identifies potential causes for the variance. Each one is shown with the evidence behind it, so a reader can check the reasoning rather than trust a label.",
         ],
       },
       aiPipeline: {
         paragraphs: [
-          "The core of the system is a pretrained BERT model, fine-tuned for phishing email classification. Rather than a single yes/no answer, communications are classified by threat level based on how deceptive they are and how detectable that deception is.",
+          "The AI Variance Assistant is an LLM-backed explanation interface that runs as its own service. It turns the platform's analysis into plain-language answers about why a plant's performance varied.",
+        ],
+      },
+      security: {
+        bullets: ["JWT-based authentication.", "Passwords hashed with Argon2."],
+      },
+      learnings: {
+        bullets: [
+          "A shortfall only means something against a baseline. Physics-based expected generation gives every finding a reference point.",
+          "No single detector covers every failure shape. Peer outliers, sustained deviations and gradual drift each need a different test.",
+          "Keeping the LLM in its own service, explaining results that analytics has already computed, keeps explanations tied to evidence.",
         ],
       },
     },

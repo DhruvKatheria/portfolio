@@ -16,7 +16,7 @@ export const site: SiteConfig = {
   linkedin: "https://www.linkedin.com/in/dhruv-katheria-77095832a/",
   resumePath: "/resume/Dhruv_Katheria_Resume.pdf",
   description:
-    "Dhruv Katheria — B.E. Information Technology student at PICT building full-stack and AI-powered applications. Projects in applied ML, full-stack web and blockchain systems.",
+    "Dhruv Katheria — B.E. Information Technology student at PICT building full-stack and AI-powered applications. Projects in energy analytics, full-stack web and blockchain systems.",
 };
 
 export const navItems: NavItem[] = [
