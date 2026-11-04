@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { Project } from "@/types";
 import { Stripe } from "@/components/ui/Stripe";
 import { ProjectVisual } from "./ProjectVisual";
-import { HighlightList, ProjectActions, StackList } from "./ProjectMeta";
+import { HighlightList, ProjectActions, ProjectContext, StackList } from "./ProjectMeta";
 
 /** The captain's card: the largest project treatment on the page. */
 export function FlagshipProject({ project }: { project: Project }) {
@@ -22,7 +22,8 @@ export function FlagshipProject({ project }: { project: Project }) {
               Flagship project
             </span>
             <span className="kicker text-fog">
-              No. {project.number} · {project.date}
+              No. {project.number}
+              {project.date ? ` · ${project.date}` : ""}
             </span>
           </div>
 
@@ -33,7 +34,9 @@ export function FlagshipProject({ project }: { project: Project }) {
                 {project.title}
               </Link>
             </h3>
+            {project.subtitle ? <p className="mt-3 text-lg font-medium text-chalk">{project.subtitle}</p> : null}
             <p className="mt-5 max-w-xl text-lg leading-relaxed text-chalk/90">{project.summary}</p>
+            <ProjectContext project={project} className="mt-5" />
           </div>
 
           <div className="border-l-2 border-grana/70 pl-5">
@@ -50,13 +53,13 @@ export function FlagshipProject({ project }: { project: Project }) {
           <ProjectActions project={project} />
         </div>
 
-        <div className="relative flex items-center border-t border-line bg-night/40 p-6 sm:p-10 lg:col-span-5 lg:border-t-0 lg:border-l">
+        <div className="relative flex items-center border-t border-line bg-night/40 p-6 sm:p-10 lg:col-span-5 lg:items-start lg:border-t-0 lg:border-l lg:pt-28">
           <div aria-hidden="true" className="display pointer-events-none absolute top-4 right-6 text-[7rem] leading-none text-chalk/[0.04] select-none">
             {project.number}
           </div>
-          <div className="relative w-full">
+          <div className="relative w-full lg:sticky lg:top-28">
             <ProjectVisual visual={project.visual} id={`visual-${project.slug}`} />
-            <p className="kicker mt-4 text-center text-fog">Concept diagram · not a screenshot</p>
+            <p className="kicker mt-4 text-center text-fog">Illustrative preview · not real data</p>
           </div>
         </div>
       </div>

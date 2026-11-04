@@ -27,18 +27,23 @@ export const CASE_STUDY_SECTIONS = [
   { key: "overview", title: "Overview" },
   { key: "problem", title: "Problem" },
   { key: "motivation", title: "Motivation" },
+  { key: "solution", title: "Solution" },
   { key: "requirements", title: "Requirements" },
   { key: "architecture", title: "Architecture" },
+  { key: "implementation", title: "Technical implementation" },
   { key: "frontend", title: "Frontend architecture" },
   { key: "backend", title: "Backend architecture" },
   { key: "database", title: "Database design" },
   { key: "api", title: "API design" },
+  { key: "anomalyDetection", title: "Anomaly detection" },
+  { key: "reconciliation", title: "Energy reconciliation" },
   { key: "aiPipeline", title: "AI / ML pipeline" },
   { key: "security", title: "Security" },
   { key: "deployment", title: "Deployment" },
   { key: "challenges", title: "Challenges" },
   { key: "decisions", title: "Engineering decisions" },
   { key: "tradeoffs", title: "Tradeoffs" },
+  { key: "learnings", title: "Key learnings" },
   { key: "future", title: "Future improvements" },
 ] as const;
 
@@ -47,25 +52,32 @@ export type CaseStudySectionKey = (typeof CASE_STUDY_SECTIONS)[number]["key"];
 export type CaseStudyBlock = {
   paragraphs?: string[];
   bullets?: string[];
+  /** Optional diagram rendered under the section text. */
+  visual?: ProjectVisual;
 };
 
 /** Only sections with real content are listed; missing keys are simply not rendered. */
 export type CaseStudy = Partial<Record<CaseStudySectionKey, CaseStudyBlock>>;
 
-/** Which original abstract illustration represents the project. */
-export type ProjectVisual = "threat" | "ledger" | "escrow";
+/** Original illustrations available to projects and case-study sections. */
+export type ProjectVisual = "solar-dashboard" | "solar-architecture" | "ledger" | "escrow";
 
 export type Project = {
   slug: string;
   /** Squad number shown on cards, e.g. "01". */
   number: string;
   title: string;
+  /** Optional descriptive line shown under the title. */
+  subtitle?: string;
   /** Short name used in tight spaces. */
   shortTitle: string;
   kicker: string;
-  date: string;
-  /** ISO year-month used for sorting and the journey timeline. */
-  dateISO: string;
+  /** Display date. Omit if unconfirmed. */
+  date?: string;
+  /** ISO year-month used for sorting the journey timeline. Undated projects sort last. */
+  dateISO?: string;
+  /** Where the project was built, e.g. a hackathon. Only confirmed details. */
+  context?: { event: string; brief?: string; team?: string };
   summary: string;
   problem: string;
   stack: string[];

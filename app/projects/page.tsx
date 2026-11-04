@@ -4,7 +4,7 @@ import { Stripe } from "@/components/ui/Stripe";
 
 export const metadata: Metadata = {
   title: "Projects",
-  description: "Case studies of projects by Dhruv Katheria, spanning applied ML, full-stack web and blockchain systems.",
+  description: "Case studies of projects by Dhruv Katheria, spanning energy analytics, full-stack web and blockchain systems.",
   alternates: { canonical: "/projects" },
 };
 

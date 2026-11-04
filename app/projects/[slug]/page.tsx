@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const project = getProject((await params).slug);
   if (!project) return {};
   return {
-    title: project.title,
+    title: project.subtitle ? `${project.title}: ${project.subtitle}` : project.title,
     description: project.summary,
     alternates: { canonical: `/projects/${project.slug}` },
     openGraph: { title: project.title, description: project.summary, type: "article" },
@@ -48,10 +48,11 @@ export default async function ProjectPage({ params }: Props) {
             <p className="kicker flex flex-wrap items-center gap-3 text-mist">
               <Stripe className="h-3 w-3 rounded-[1px]" width={1.5} />
               <span className="text-chalk">No. {project.number} · Match report</span>
-              <span className="text-fog">{project.date}</span>
+              {project.date ? <span className="text-fog">{project.date}</span> : null}
             </p>
             <p className="kicker mt-6 text-blau-bright">{project.kicker}</p>
             <h1 className="display mt-3 text-[clamp(3rem,9vw,6.5rem)]">{project.title}</h1>
+            {project.subtitle ? <p className="mt-4 text-xl font-medium text-chalk">{project.subtitle}</p> : null}
             <p className="mt-6 max-w-2xl text-xl leading-relaxed text-chalk/90">{project.summary}</p>
           </div>
           <div className="lg:col-span-5">
@@ -67,11 +68,33 @@ export default async function ProjectPage({ params }: Props) {
           <div className="flex flex-col gap-8 lg:sticky lg:top-24">
             <div className="rounded-2xl border border-line bg-pitch p-6">
               <p className="kicker border-b border-line pb-3 text-mist">Team sheet</p>
-              <dl className="mt-5">
-                <div>
-                  <dt className="kicker text-fog">Date</dt>
-                  <dd className="mt-1 text-chalk">{project.date}</dd>
-                </div>
+              <dl className="mt-5 flex flex-col gap-4">
+                {project.context ? (
+                  <>
+                    <div>
+                      <dt className="kicker text-fog">Event</dt>
+                      <dd className="mt-1 text-chalk">{project.context.event}</dd>
+                    </div>
+                    {project.context.brief ? (
+                      <div>
+                        <dt className="kicker text-fog">Brief</dt>
+                        <dd className="mt-1 text-chalk">{project.context.brief}</dd>
+                      </div>
+                    ) : null}
+                    {project.context.team ? (
+                      <div>
+                        <dt className="kicker text-fog">Team</dt>
+                        <dd className="mt-1 text-chalk">{project.context.team}</dd>
+                      </div>
+                    ) : null}
+                  </>
+                ) : null}
+                {project.date ? (
+                  <div>
+                    <dt className="kicker text-fog">Date</dt>
+                    <dd className="mt-1 text-chalk">{project.date}</dd>
+                  </div>
+                ) : null}
               </dl>
               <div className="mt-5">
                 <StackList stack={project.stack} />

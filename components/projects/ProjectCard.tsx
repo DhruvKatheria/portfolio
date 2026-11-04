@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Project } from "@/types";
 import { ProjectVisual } from "./ProjectVisual";
-import { HighlightList, ProjectActions, StackList } from "./ProjectMeta";
+import { HighlightList, ProjectActions, ProjectContext, StackList } from "./ProjectMeta";
 
 /** Player-card styled project card for supporting projects. */
 export function ProjectCard({ project }: { project: Project }) {
@@ -18,7 +18,7 @@ export function ProjectCard({ project }: { project: Project }) {
         <div>
           <p className="kicker flex flex-wrap gap-x-3 text-fog">
             <span className="text-chalk">No. {project.number}</span>
-            <span>{project.date}</span>
+            {project.date ? <span>{project.date}</span> : null}
           </p>
           <p className="kicker mt-4 text-blau-bright">{project.kicker}</p>
           <h3 className="display mt-2 text-[clamp(2rem,4vw,2.75rem)]">
@@ -26,7 +26,9 @@ export function ProjectCard({ project }: { project: Project }) {
               {project.title}
             </Link>
           </h3>
+          {project.subtitle ? <p className="mt-2 font-medium text-chalk">{project.subtitle}</p> : null}
           <p className="mt-4 leading-relaxed text-chalk/90">{project.summary}</p>
+          <ProjectContext project={project} className="mt-4" />
           <p className="mt-3 text-sm leading-relaxed text-mist">
             <span className="kicker mr-2 text-fog">Problem</span>
             {project.problem}

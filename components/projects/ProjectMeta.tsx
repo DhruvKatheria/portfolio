@@ -32,6 +32,24 @@ export function HighlightList({ items, compact }: { items: string[]; compact?: b
   );
 }
 
+/** Event / team line, e.g. a hackathon. Renders nothing without confirmed context. */
+export function ProjectContext({ project, className = "" }: { project: Project; className?: string }) {
+  const { context } = project;
+  if (!context) return null;
+  return (
+    <p className={`flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-mist ${className}`}>
+      <span className="kicker rounded-sm border border-line-strong px-2 py-1 text-chalk">Hackathon</span>
+      <span>{context.event}</span>
+      {context.team ? (
+        <>
+          <span aria-hidden="true" className="text-fog">·</span>
+          <span>Team {context.team}</span>
+        </>
+      ) : null}
+    </p>
+  );
+}
+
 /** Case-study CTA plus repo/demo links — the latter only if confirmed in data. */
 export function ProjectActions({ project }: { project: Project }) {
   return (

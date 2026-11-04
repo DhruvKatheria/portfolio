@@ -25,8 +25,8 @@ export function About() {
                 I&apos;m studying Information Technology at PICT, Pune, and most of what I build sits where backend
                 engineering, full-stack development and applied AI meet.
               </span>{" "}
-              That has meant a fine-tuned language model behind a Flask app, a FastAPI service over a normalised
-              Postgres schema, and smart contracts that settle payments without a middleman.
+              That has meant a solar analytics platform that explains why plants underperform, a FastAPI
+              service over a normalised Postgres schema, and smart contracts that settle payments without a middleman.
             </p>
             <p>
               What pulls me in is how systems actually work: how data is modelled, how services talk to each

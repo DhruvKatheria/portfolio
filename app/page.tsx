@@ -24,7 +24,7 @@ export default function Home() {
           matchday="02"
           kicker="Featured work"
           title="Selected projects."
-          lede="Three builds across applied ML, full-stack web and decentralised systems. Each one links to a full case study."
+          lede="Three builds across energy analytics, full-stack web and decentralised systems. Each one links to a full case study."
         />
         <div className="mt-14">
           <ProjectsShowcase />

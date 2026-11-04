@@ -40,7 +40,7 @@ Defined as Tailwind theme tokens in `app/globals.css`.
 | `grana` | `#A50044` | Brand fill: stripes, flagship accents |
 | `grana-bright` | `#EC5C8F` | Garnet *text* (≈5.6:1 on night) |
 | `burgundy` | `#6A123A` | Deep tints behind garnet |
-| `gold` | `#EDBB00` | **Extremely restrained**: captain's armband on the flagship project, the "W" in the scoreboard. Never body text. |
+| `gold` | `#EDBB00` | **Extremely restrained**: captain's armband on the flagship project, the "W" in the scoreboard, and the "expected generation" accents in SolarSleuth diagrams (sunlight). Never body text. |
 
 Rules
 - At least 85% of any viewport is night/pitch neutrals.
@@ -73,7 +73,7 @@ Scale (fluid with `clamp`): hero name `clamp(4rem, 13vw, 11.5rem)` · section ti
 - **PitchDivider**: a hairline with a centre circle, the halfway line. Used between major sections.
 - **Scoreboard**: a stadium-board panel with mono tabular figures, small caps labels and a "Full time" header bar.
 - **Project cards** (player-card inspired): squad number, kicker, title, problem line, stack chips, CTA. Flagship = full-width "captain" card with a gold armband "C".
-- **Project visuals**: original abstract SVG diagrams, one per project (`threat`, `ledger`, `escrow`). They show *concepts* only: no fake screenshots, numbers or model outputs.
+- **Project visuals**: original abstract SVG diagrams, one per project (`solar-dashboard`, `ledger`, `escrow`), plus section diagrams such as `solar-architecture` that case studies can embed. They show *concepts* only: no fake screenshots, numbers or model outputs.
 - **TacticalPitch**: hero diagram. A 4-3-3 formation whose positions are confirmed skills (fundamentals at the back, languages in midfield, frameworks up front).
 - **Team sheet**: case-study sidebar (date, stack, links if confirmed).
 - **Chip**: solid border = established; dashed border + "Learning" label = in training.
